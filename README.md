@@ -2,7 +2,7 @@
 
 Selected interaction design work by Ruoyi (Iris) Zhao — human-centered AI, meaningful feedback and tangible experiences.
 
-Live site: https://zryiiii-web.github.io/Ruoyi-Iris-Zhao-s-Website/
+Live site: https://zryiiii-web.github.io/Ruoyi-Iris-Zhao-Portfolio/
 
 ## Structure
 
@@ -17,12 +17,16 @@ _next/static/                  JS / CSS build output
 .nojekyll                      Required — keeps the _next folder on GitHub Pages
 ```
 
-## Deployment
+## How this is published
 
-This is a pre-built static export: every route is committed as plain HTML plus its assets.
-GitHub Pages serves the `main` branch at the repository root. There is no build step — edit a file
-and push, and the change goes live in about a minute.
+Static export, no build step: every route is a plain `index.html` plus its assets, served by
+GitHub Pages from the `main` branch at the repository root. Edit a file, push, live in ~1 minute.
 
-Paths are prefixed with `/Ruoyi-Iris-Zhao-s-Website/` so the site works as a GitHub Pages
-project page. If you later move to the domain root (a `zryiiii-web.github.io` repository or a
-custom domain), those prefixes have to be removed.
+## Renaming the repository
+
+All URLs are prefixed with `/Ruoyi-Iris-Zhao-Portfolio/` so the site works as a Pages project page. If the
+repository is renamed, every asset path breaks and the page loads unstyled. Regenerate with:
+
+```
+node build-deploy.js /<new-repo-name>
+```
