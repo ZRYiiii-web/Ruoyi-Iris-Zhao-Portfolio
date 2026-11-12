@@ -195,3 +195,48 @@ figcaption{letter-spacing:.5px}
   .pub-arrow{grid-row:2;grid-column:2;margin-top:5px}
   .case-media{margin-top:28px}
 }
+
+/* ============================================================
+   About 区块：BounceCoach · IEEE VR 2026 的论文 / 海报链接
+   与项目页的 .case-pub 同一套 URL，但这里用更轻的行内样式，
+   避免在 About 里再造一条分割线列表
+   ============================================================ */
+
+.pub-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 22px;
+  margin-top:18px;
+}
+
+.pub-link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding-bottom:4px;
+  border-bottom:1px solid var(--line);
+  color:var(--ink);
+  text-decoration:none;
+  font-family:Manrope,sans-serif;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:1.1px;
+  text-transform:uppercase;
+  transition:color .2s ease,border-color .2s ease;
+}
+
+.pub-link .arrow-icon{
+  width:11px;
+  height:11px;
+  stroke-width:1.6px;
+  opacity:.7;
+  transition:opacity .2s ease,transform .2s ease;
+}
+
+.pub-link:hover{color:var(--green);border-color:var(--green)}
+.pub-link:hover .arrow-icon{opacity:1;transform:translate(1px,-1px)}
+
+@media (max-width:700px){
+  .pub-links{gap:10px 18px;margin-top:14px}
+  .pub-link{font-size:12px;letter-spacing:.9px}
+}
