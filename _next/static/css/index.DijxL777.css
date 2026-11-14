@@ -244,8 +244,8 @@ figcaption{letter-spacing:.5px}
 /* ============================================================
    hero 四图作品墙
    原结构：art-main（大）+ art-small（小）两张斜置卡片。
-   现结构：四个项目各一张，2×2 排布，各自微角度；
-           DribbleIQ 用抠好的圆形图，去掉卡片框，浮在背景上做破格点。
+   现结构：四个项目各一张，2×2 排布，各自微角度，统一 3:2 卡片框。
+           （02 曾试过用抠好的圆形图做破格，视觉上不够协调，已改回原封面。）
    读序：01 左上 → 02 右上 → 03 左下 → 04 右下（Z 字）
    ============================================================ */
 
@@ -299,21 +299,6 @@ figcaption{letter-spacing:.5px}
   box-shadow:0 22px 46px #20302826;
 }
 
-/* 圆形那张：无卡片框，直接浮在纸面上；尺寸压到与卡片图等高，避免撑高整行 */
-.art-card.art-round{
-  background:none; padding:0; box-shadow:none;
-  align-self:start;
-}
-.art-card.art-round img{
-  width:68%; height:auto; margin:0 auto;
-  aspect-ratio:1/1; object-fit:contain;
-  filter:drop-shadow(0 16px 36px #1c2a2322);
-}
-.art-card.art-round>span{padding-top:5px; justify-content:center}
-.art-card.art-round:hover{
-  transform:rotate(0deg) translateY(-8px) scale(1.015);
-}
-
 /* 右上角 + 号：往外探一点，但别贴到屏幕边 */
 .hero .hero-art>.art-cross{right:-6px}
 
@@ -334,8 +319,6 @@ figcaption{letter-spacing:.5px}
     position:static; grid-column:1/-1;
     text-align:left; margin-bottom:2px;
   }
-  /* 圆直径压到与卡片图等高，标签才能和左右卡片对齐 */
-  .art-card.art-round img{width:67%}
   .art-card{padding:6px 6px 0}
   .art-card>span{font-size:11px; padding:7px 2px; gap:6px; letter-spacing:.2px}
   .art-card>span svg{width:11px; height:11px}
