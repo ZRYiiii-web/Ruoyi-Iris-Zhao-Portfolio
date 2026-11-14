@@ -240,3 +240,116 @@ figcaption{letter-spacing:.5px}
   .pub-links{gap:10px 18px;margin-top:14px}
   .pub-link{font-size:12px;letter-spacing:.9px}
 }
+
+/* ============================================================
+   hero 四图作品墙
+   原结构：art-main（大）+ art-small（小）两张斜置卡片。
+   现结构：四个项目各一张，2×2 排布，各自微角度；
+           DribbleIQ 用抠好的圆形图，去掉卡片框，浮在背景上做破格点。
+   读序：01 左上 → 02 右上 → 03 左下 → 04 右下（Z 字）
+   ============================================================ */
+
+.hero .hero-copy{width:42%}
+.hero .hero-copy p{max-width:430px}
+
+.hero .hero-art{
+  width:46%; right:4.5%; top:104px; height:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:30px 44px;
+  align-items:start;
+}
+
+/* 顶部小标签移到左上，给右侧的 + 号让位 */
+.hero .hero-art>.art-index{
+  position:absolute; top:-27px; left:0; right:auto;
+  margin:0; text-align:left;
+}
+
+.art-card{
+  display:block; position:relative; z-index:1;
+  background:#fdf9f5;
+  padding:9px 9px 0;
+  box-shadow:0 12px 30px #20302816;
+  transform-origin:50% 55%;
+  transition:transform .45s cubic-bezier(.2,.7,.3,1), box-shadow .45s;
+}
+.art-card img{
+  display:block; width:100%;
+  aspect-ratio:3/2; object-fit:cover;
+}
+.art-card>span{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:10px 2px;
+  font-family:Manrope,sans-serif; font-size:13px; font-weight:600;
+  letter-spacing:.4px; line-height:1.15; color:#222b26;
+}
+.art-card>span svg{width:13px; height:13px; flex:none}
+.art-card>span b{display:flex; align-items:center}
+
+/* 四张的微角度与错位：够打破网格，又不至于散 */
+.art-c1{transform:rotate(-3deg)}
+.art-c2{transform:rotate(1.4deg) translateY(-10px)}
+.art-c3{transform:rotate(2.2deg) translateY(6px)}
+.art-c4{transform:rotate(-2deg) translateY(2px)}
+
+.art-card:hover{
+  transform:rotate(0deg) translateY(-8px);
+  z-index:6;
+  box-shadow:0 22px 46px #20302826;
+}
+
+/* 圆形那张：无卡片框，直接浮在纸面上；尺寸压到与卡片图等高，避免撑高整行 */
+.art-card.art-round{
+  background:none; padding:0; box-shadow:none;
+  align-self:start;
+}
+.art-card.art-round img{
+  width:68%; height:auto; margin:0 auto;
+  aspect-ratio:1/1; object-fit:contain;
+  filter:drop-shadow(0 16px 36px #1c2a2322);
+}
+.art-card.art-round>span{padding-top:5px; justify-content:center}
+.art-card.art-round:hover{
+  transform:rotate(0deg) translateY(-8px) scale(1.015);
+}
+
+/* 右上角 + 号：往外探一点，但别贴到屏幕边 */
+.hero .hero-art>.art-cross{right:-6px}
+
+@media (max-width:1180px){
+  .hero .hero-copy{width:44%}
+  .hero .hero-art{width:49%; right:3%; gap:26px 30px}
+}
+
+@media (max-width:900px){
+  .hero .hero-copy{width:100%}
+  .hero .hero-art{
+    position:relative; top:0; right:auto; width:100%;
+    margin:34px 0 16px;
+    gap:20px 18px;
+  }
+  /* 这一行必须跨满两列，否则它会占掉第一个格子，把四张图全部挤偏 */
+  .hero .hero-art>.art-index{
+    position:static; grid-column:1/-1;
+    text-align:left; margin-bottom:2px;
+  }
+  /* 圆直径压到与卡片图等高，标签才能和左右卡片对齐 */
+  .art-card.art-round img{width:67%}
+  .art-card{padding:6px 6px 0}
+  .art-card>span{font-size:11px; padding:7px 2px; gap:6px; letter-spacing:.2px}
+  .art-card>span svg{width:11px; height:11px}
+  .art-c1{transform:rotate(-2deg)}
+  .art-c2{transform:rotate(1.2deg) translateY(-5px)}
+  .art-c3{transform:rotate(1.6deg) translateY(3px)}
+  .art-c4{transform:rotate(-1.4deg)}
+}
+
+@media (max-width:560px){
+  .hero .hero-art{gap:16px 14px}
+  .art-card{padding:5px 5px 0}
+  .art-card>span{font-size:10px; padding:6px 1px}
+  .art-card>span svg{width:10px; height:10px}
+  .art-c2{transform:rotate(1deg)}
+  .art-c4{transform:rotate(-1deg)}
+}
