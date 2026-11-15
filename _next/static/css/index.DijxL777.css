@@ -336,3 +336,35 @@ figcaption{letter-spacing:.5px}
   .art-c2{transform:rotate(1deg)}
   .art-c4{transform:rotate(-1deg)}
 }
+
+/* ============================================================
+   中文版首屏标题
+   原文案被 <br> 硬断成「设计，为了 / 更好地理解」两行；
+   中文每行只有 4 字，断行后右侧留出大片空白，且第二行整行斜体，
+   看起来像两个不相干的短句。这里在中文版隐藏 <br>，让整句一行排完。
+   字号按栏宽收敛：1440 视口 hero-copy 实测 538px，
+   10 个全角字需要 ≈52px 才放得下，因此不宜沿用英文的 88px。
+   ============================================================ */
+
+html[lang=zh-CN] .hero h1{
+  font-size:52px;
+  line-height:1.18;
+  letter-spacing:0;
+}
+html[lang=zh-CN] .hero h1 br{display:none}
+html[lang=zh-CN] .hero h1 em{letter-spacing:0}
+
+@media (max-width:1180px){
+  /* hero-copy 收窄到 462px */
+  html[lang=zh-CN] .hero h1{font-size:44px}
+}
+
+@media (max-width:900px){
+  /* 单列，栏宽回到整宽 */
+  html[lang=zh-CN] .hero h1{font-size:52px}
+}
+
+@media (max-width:620px){
+  /* 10 个全角字 × 0.084W ≈ 0.84W，始终小于栏宽（约 0.88W） */
+  html[lang=zh-CN] .hero h1{font-size:min(8.4vw,42px)}
+}
