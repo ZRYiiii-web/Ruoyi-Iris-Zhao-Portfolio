@@ -375,3 +375,85 @@ html[lang=zh-CN] .hero h1 em{letter-spacing:0; font-style:normal}
 @media (max-width:900px){
   html[lang=zh-CN] .hero h1{font-size:clamp(34px, 6.4vw, 54px)}
 }
+
+/* ============================================================
+   About me：肖像 / 资料栏 / 经历时间 / 荣誉 / 联系方式
+   位置：首页 02 区块。左栏 = 标题 + 肖像 + 签名；右栏 = 正文 + 资料 + 经历 + 荣誉 + 联系方式。
+   细节沿用页面既有语言：1px 细线分隔、Manrope 小字标签、var(--muted) 次级文字，
+   不再引入新的卡片 / 边框样式。
+   ============================================================ */
+
+/* ---------- 左栏：肖像 ---------- */
+.about-portrait{margin:38px 0 0;max-width:400px}.about-portrait img{
+  display:block;width:100%;height:auto;
+  aspect-ratio:3/4;object-fit:cover;
+}
+/* 签名压在肖像下沿，像在照片上签名；margin 从原来的 65px 收到 20px */
+.about-portrait + .signature{margin-top:20px}
+
+/* ---------- 右栏：资料栏（label / value） ---------- */
+.about-facts{margin-top:36px;border-top:1px solid var(--line)}
+.fact{
+  display:grid;grid-template-columns:104px 1fr;gap:20px;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.fact-k{
+  font-family:Manrope,sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:1.1px;line-height:1.5;color:var(--muted);padding-top:1px;
+}
+.fact-v{display:block;font-size:15.5px;line-height:1.5;color:var(--ink)}
+.fact-v>span{display:block}
+
+/* ---------- 经历：右侧补年月 ---------- */
+.exp-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
+.exp-when{
+  font-family:Manrope,sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:1.1px;color:var(--muted);white-space:nowrap;
+}
+
+/* ---------- 荣誉 ---------- */
+.about-rec{margin-top:40px}
+.about-rec>.eyebrow,
+.about-contact>.eyebrow{display:block;margin-bottom:12px}
+.rec-list{border-top:1px solid var(--line)}
+.rec{
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.rec-t{font-size:15.5px;line-height:1.5;color:var(--ink)}
+.rec-y{
+  font-family:Manrope,sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:1.1px;color:var(--muted);white-space:nowrap;
+}
+
+/* ---------- 联系方式 ---------- */
+.about-contact{margin-top:34px}
+.about-contact .pub-links{margin-top:0}
+/* 邮箱照原样小写显示，不要被 .pub-link 的 uppercase 改掉 */
+.pub-link.is-mail{text-transform:none;letter-spacing:.2px;font-size:14px}
+
+/* ---------- 响应式 ---------- */
+@media (min-width:901px){
+  /* 右栏（资料 + 三段经历 + 荣誉 + 联系方式）比左栏长一倍多，
+     让左栏跟着滚，避免标题和肖像下面空出一大片 */
+  .about{align-items:start}
+  .about-title{position:sticky;top:112px}
+}
+
+@media (max-width:1180px){
+  .fact{grid-template-columns:92px 1fr;gap:16px}
+}
+
+@media (max-width:900px){
+  .about-portrait{max-width:320px;margin-top:28px}
+  .about-facts{margin-top:28px}
+  .about-rec{margin-top:32px}
+  .fact{grid-template-columns:88px 1fr;gap:14px;padding:12px 0}
+}
+
+@media (max-width:560px){
+  .about-portrait{max-width:100%}
+  .fact{grid-template-columns:1fr;gap:4px}
+  .fact-k{padding-top:0}
+  .rec{flex-direction:column;gap:2px}
+}
