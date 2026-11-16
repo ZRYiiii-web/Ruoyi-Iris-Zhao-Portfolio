@@ -571,6 +571,13 @@ html.zh .t-en{display:none}
   column-gap:44px;
   align-items:start;
 }
+/* 用户旅程有中英两版原稿：跟着语言开关换图。
+   两版裁的是同一个框、缩到同一个画布尺寸，所以切语言不会有位移 */
+.ow-media figure img.ow-only-en{display:block}
+.ow-media figure img.ow-only-zh{display:none}
+html.zh .ow-media figure img.ow-only-en{display:none}
+html.zh .ow-media figure img.ow-only-zh{display:block}
+
 .ow-zoomable img{
   cursor:zoom-in;
   transition:opacity .25s ease;
