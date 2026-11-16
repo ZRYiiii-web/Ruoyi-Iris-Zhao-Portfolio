@@ -302,6 +302,21 @@ figcaption{letter-spacing:.5px}
 /* 右上角 + 号：往外探一点，但别贴到屏幕边 */
 .hero .hero-art>.art-cross{right:-6px}
 
+/* ------------------------------------------------------------
+   首屏底栏（人本 AI … / 向下探索）的定位
+   底栏原本在文档流里紧跟 hero-copy，高度由标题行数决定：
+   英文标题两行时它正好落在四张卡片下方，中文标题只有一行时
+   整条 border-top 横线就往上跑，横穿 03/04 两张作品图。
+   这里把 hero 变成竖向 flex，用 margin-top:auto 把底栏钉在
+   hero 底部 —— 位置与标题行数、语言彻底解耦。
+   min-height 取英文版 1440 的实测高度 710（原为 700）。
+   ≥1600 的 820px min-height 本来就留了 100px 余量，不参与 pin。
+   ------------------------------------------------------------ */
+@media (min-width:901px) and (max-width:1599px){
+  .hero{display:flex; flex-direction:column; min-height:710px}
+  .hero-bottom{margin-top:auto}
+}
+
 @media (max-width:1180px){
   .hero .hero-copy{width:44%}
   .hero .hero-art{width:49%; right:3%; gap:26px 30px}
@@ -339,32 +354,24 @@ figcaption{letter-spacing:.5px}
 
 /* ============================================================
    中文版首屏标题
-   原文案被 <br> 硬断成「设计，为了 / 更好地理解」两行；
-   中文每行只有 4 字，断行后右侧留出大片空白，且第二行整行斜体，
-   看起来像两个不相干的短句。这里在中文版隐藏 <br>，让整句一行排完。
-   字号按栏宽收敛：1440 视口 hero-copy 实测 538px，
-   10 个全角字需要 ≈52px 才放得下，因此不宜沿用英文的 88px。
+   英文是两行：Designing for / Understanding（第二行斜体 + 绿色）。
+   中文按同一节奏断成两行：设计，/ 为了更好的理解，第二行走 em（绿色）。
+   中文一个字就是一个字宽，字号必须按「第二行 7 个全角字」反推：
+     · 1440 视口 hero-copy 实测 538px → 7 字 ≤ 76px，取 4.9vw ≈ 70px
+     · ≥1600 栏宽 718px，clamp 上限放到 88px，与英文主标题同级
+   CJK 没有真正的斜体字形，浏览器会强行把笔画拉斜（伪斜体），
+   宋体被剪切后笔锋全断，这里是明确关掉的：第二行只靠绿色区分，
+   与英文的 Understanding（真斜体 + 绿色）保持同一层级关系。
    ============================================================ */
 
 html[lang=zh-CN] .hero h1{
-  font-size:52px;
-  line-height:1.18;
+  font-size:clamp(40px, 4.9vw, 88px);
+  line-height:1.1;
   letter-spacing:0;
 }
-html[lang=zh-CN] .hero h1 br{display:none}
-html[lang=zh-CN] .hero h1 em{letter-spacing:0}
+html[lang=zh-CN] .hero h1 em{letter-spacing:0; font-style:normal}
 
-@media (max-width:1180px){
-  /* hero-copy 收窄到 462px */
-  html[lang=zh-CN] .hero h1{font-size:44px}
-}
-
+/* 单列后栏宽回到整宽（约 0.88W），可以放大一档 */
 @media (max-width:900px){
-  /* 单列，栏宽回到整宽 */
-  html[lang=zh-CN] .hero h1{font-size:52px}
-}
-
-@media (max-width:620px){
-  /* 10 个全角字 × 0.084W ≈ 0.84W，始终小于栏宽（约 0.88W） */
-  html[lang=zh-CN] .hero h1{font-size:min(8.4vw,42px)}
+  html[lang=zh-CN] .hero h1{font-size:clamp(34px, 6.4vw, 54px)}
 }
