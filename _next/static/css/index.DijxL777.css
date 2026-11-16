@@ -565,8 +565,51 @@ html.zh .t-en{display:none}
   gap:42px 26px;
   display:grid;
 }
-/* 色块图已抠成透明底，压小一点当「细节」看，不抢主体 */
-.ow-figure--colors{max-width:700px}
+/* 流程图 / 架构图：从 PDF 抠掉底色导出透明 WebP，直接落在纸面上，
+   不画框、不压底色；两张比例已对齐（1.9），所以图注在一条基线上 */
+.ow-pair--diagrams{
+  column-gap:44px;
+  align-items:start;
+}
+.ow-zoomable img{
+  cursor:zoom-in;
+  transition:opacity .25s ease;
+}
+.ow-zoomable:hover img{opacity:.8}
+
+/* 点开看全图：只有奶油底和图和一句图注，没有其他界面 */
+.ow-zoom{
+  position:fixed;
+  inset:0;
+  z-index:120;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:18px;
+  padding:5vh 4vw;
+  background:var(--paper);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .22s ease;
+  cursor:zoom-out;
+}
+.ow-zoom.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.ow-zoom img{
+  width:auto;
+  max-width:100%;
+  max-height:84vh;
+}
+.ow-zoom p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  text-align:center;
+}
 .ow-media figcaption,
 .ow-pair figcaption{
   color:var(--muted);

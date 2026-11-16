@@ -94,19 +94,23 @@
           </div>
         </dl>
         <div class="ow-media">
-          <div class="ow-pair">
-            <figure>
-              <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-flow-1.jpg" alt="Mentra app home: study days, daily topics and courses" loading="lazy"/>
-              <figcaption><span class="t-en">Home — study days, daily topics, courses</span><span class="t-zh">首页——打卡天数、今日话题与课程</span></figcaption>
+          <div class="ow-pair ow-pair--diagrams">
+            <figure class="ow-zoomable">
+              <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-journey.webp" alt="Customer journey: five phases from study need to feedback, two touch points each" loading="lazy"/>
+              <figcaption><span class="t-en">Customer journey — five phases, two touch points each</span><span class="t-zh">用户旅程——五个阶段，每阶段两个触点</span></figcaption>
             </figure>
-            <figure>
-              <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-flow-2.jpg" alt="Mentra listening and pronunciation practice with sentence-level feedback" loading="lazy"/>
-              <figcaption><span class="t-en">Listening and shadowing — sentence-level feedback</span><span class="t-zh">听力与跟读——逐句反馈</span></figcaption>
+            <figure class="ow-zoomable">
+              <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-ia.webp" alt="Information architecture: Home, Class, Community and Me, with learner and parent paths" loading="lazy"/>
+              <figcaption><span class="t-en">Information architecture — four areas, two user paths</span><span class="t-zh">信息架构——四个一级入口，两条用户路径</span></figcaption>
             </figure>
           </div>
-          <figure class="ow-figure--colors">
-            <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-colors.png" alt="Mentra colour system: primary green plus three supporting tones" loading="lazy"/>
-            <figcaption><span class="t-en">Colour system — one primary green, three supporting tones</span><span class="t-zh">色彩系统——一个主绿与三个辅助色</span></figcaption>
+          <figure>
+            <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-ui.webp" alt="Interface output: type scale, icon set and the shipped app screens" loading="lazy"/>
+            <figcaption><span class="t-en">Interface — type scale, icon set, final screens</span><span class="t-zh">界面产出——字阶、图标集与最终界面</span></figcaption>
+          </figure>
+          <figure>
+            <img src="/Ruoyi-Iris-Zhao-Portfolio/assets/otherwork/mentra-system.webp" alt="Design system: one primary green and four supporting tones" loading="lazy"/>
+            <figcaption><span class="t-en">Design system — one primary green, four supporting tones</span><span class="t-zh">设计系统——一个主绿与四个辅助色</span></figcaption>
           </figure>
         </div>
       </section>
@@ -220,6 +224,8 @@
   </a>
 </main>
 
+<div class="ow-zoom" id="owZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged figure"><img alt=""/><p></p></div>
+
 <footer>
   <a href="/Ruoyi-Iris-Zhao-Portfolio/">Ruoyi Zhao<span>.</span></a>
   <span>© 2026 · <span class="t-en">Made with curiosity.</span><span class="t-zh">以好奇心而做。</span></span>
@@ -259,6 +265,30 @@
   }
   window.addEventListener("scroll", spy, { passive: true });
   spy();
+  // 流程图 / 架构图缩在栏里字太小：点开看原图，Esc 或点任意处退出
+  var zoom = document.getElementById("owZoom");
+  if (zoom) {
+    var zoomImg = zoom.querySelector("img"), zoomCap = zoom.querySelector("p");
+    function closeZoom() {
+      zoom.className = "ow-zoom";
+      zoom.setAttribute("aria-hidden", "true");
+    }
+    [].slice.call(document.querySelectorAll(".ow-zoomable img")).forEach(function (img) {
+      img.addEventListener("click", function () {
+        var fig = img.closest("figure");
+        var cap = fig ? fig.querySelector("figcaption") : null;
+        zoomImg.src = img.getAttribute("src");
+        zoomImg.alt = img.getAttribute("alt") || "";
+        zoomCap.textContent = cap ? cap.innerText.replace(/\s+/g, " ").trim() : "";
+        zoom.className = "ow-zoom open";
+        zoom.setAttribute("aria-hidden", "false");
+      });
+    });
+    zoom.addEventListener("click", closeZoom);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeZoom();
+    });
+  }
 })();
 </script>
 </body>
