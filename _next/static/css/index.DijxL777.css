@@ -574,6 +574,9 @@ html.zh .t-en{display:none}
     height:auto;
     aspect-ratio:1.6;
   }
+  /* 窄屏时 1.6 的裁切窗对不齐三联，右对齐取插画那一格，
+     避免左边切出半截手机 */
+  .project-card--wide .project-image>img{object-position:right center}
   .project-card--wide .card-meta{margin-top:14px}
   .ow-facts{
     grid-template-columns:1fr;
