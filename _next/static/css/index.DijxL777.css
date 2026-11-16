@@ -481,25 +481,34 @@ html.zh .t-en{display:none}
   border-top:1px solid var(--line);
   padding-top:46px;
 }
-/* 三联封面本身就是 2400×760，别用固定高度去裁它 */
+/* 封面就是 otherwork 那张 2300×800 的三栏版面（2600×904），按原比例铺 */
 .project-card--wide .project-image{
   height:auto;
-  aspect-ratio:2400 / 760;
+  aspect-ratio:2600 / 904;
 }
-.project-card--wide .project-number{left:auto;right:16px}
+/* 封面本身就是一张排满的版面，上面再压「05」和箭头只会打架：
+   编号挪进下面那行 meta，浮层两个都收掉 */
+.project-card--wide .project-number,
+.project-card--wide .round-arrow{display:none}
 .project-card--wide .card-meta{margin-top:20px}
 .project-card--wide h3{margin-top:2px}
 .project-card--wide > p{max-width:640px;margin-top:8px}
 
 /* ---------- 独立页：正文里的图文节奏 ---------- */
-.case--other .case-cover{
-  background:0 0;
-  height:auto;
+/* ---------- 独立页：每一段的标题行（编号 + 类别 …… 时间）---------- */
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:12px;
 }
-.case--other .case-cover img{
-  width:100%;
-  height:auto;
-  display:block;
+.sec-head .eyebrow{margin:0}
+.ow-when{
+  font:600 11px/1 Manrope, sans-serif;
+  letter-spacing:1.1px;
+  color:var(--muted);
+  white-space:nowrap;
 }
 
 /* 目录里那两条链接的标题文字：不要吃号码的 9px 小字规则 */
@@ -556,6 +565,8 @@ html.zh .t-en{display:none}
   gap:42px 26px;
   display:grid;
 }
+/* 色块图已抠成透明底，压小一点当「细节」看，不抢主体 */
+.ow-figure--colors{max-width:700px}
 .ow-media figcaption,
 .ow-pair figcaption{
   color:var(--muted);
@@ -570,13 +581,6 @@ html.zh .t-en{display:none}
     padding-top:34px;
     margin-top:0;
   }
-  .project-card--wide .project-image{
-    height:auto;
-    aspect-ratio:1.6;
-  }
-  /* 窄屏时 1.6 的裁切窗对不齐三联，右对齐取插画那一格，
-     避免左边切出半截手机 */
-  .project-card--wide .project-image>img{object-position:right center}
   .project-card--wide .card-meta{margin-top:14px}
   .ow-facts{
     grid-template-columns:1fr;
