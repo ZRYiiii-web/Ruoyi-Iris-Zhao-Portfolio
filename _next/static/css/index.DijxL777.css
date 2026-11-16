@@ -486,6 +486,7 @@ html.zh .t-en{display:none}
   height:auto;
   aspect-ratio:2400 / 760;
 }
+.project-card--wide .project-number{left:auto;right:16px}
 .project-card--wide .card-meta{margin-top:20px}
 .project-card--wide h3{margin-top:2px}
 .project-card--wide > p{max-width:640px;margin-top:8px}
