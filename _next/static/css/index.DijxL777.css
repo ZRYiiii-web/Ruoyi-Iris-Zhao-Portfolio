@@ -1002,6 +1002,9 @@ html[lang=zh-CN] .hero h1{
 /* 小字那一行已经删掉，按钮紧跟标题，给它一点呼吸 */
 .hero-copy .solid-button{margin-top:6px}
 
+/* 末行是 em（绿色），基础样式里 em 被压回 400，这里跟着标题一起粗 */
+html[lang=zh-CN] .hero h1 em{font-weight:inherit}
+
 @media (max-width:1100px){
   .hero h1{font-size:clamp(27px, 3.6vw, 38px)}
   html[lang=zh-CN] .hero h1{font-size:clamp(25px, 3.8vw, 39px)}
