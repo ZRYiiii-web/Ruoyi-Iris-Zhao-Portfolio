@@ -1040,6 +1040,22 @@ html.zh .fact-v>.t-zh{display:block}
 /* 顶部导航：当前页给一点区分 */
 .header nav>a.is-current{color:var(--green)}
 
+/* 技能胶囊：原站是 `.skill-tags span`（后代选择器），会把双语用的内层
+   `.t-en/.t-zh` 也套上一层边框 + 内距，最后两个标签就成了双层框。
+   这里只给直接子元素画框，并把内层的框清掉。 */
+.skill-tags>span{
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:7px 12px;
+}
+.skill-tags span span{
+  border:0;
+  border-radius:0;
+  padding:0;
+  font-size:inherit;
+  letter-spacing:inherit;
+}
+
 /* 独立页没有首屏那块大留白，标题区不需要粘在视口上沿太远 */
 .about-page .about-title{top:104px}
 
@@ -1079,3 +1095,80 @@ html[lang=zh-CN] .hero h1{
   letter-spacing:.005em;
 }
 html[lang=zh-CN] h1 em{font-style:normal}
+
+/* ============================================================
+   中文版字体：仿宋
+   之前中文标题用的是自托管的霞鹜文楷（楷体），现在整套中文换成仿宋。
+   做法是把仿宋塞进每一处「本来就设了西文字体」的 font-family 栈的后面：
+   · 拉丁字仍然先命中 DM Sans / Georgia / Manrope，视觉不变；
+   · 汉字不在这些西文字体里，浏览器按栈继续往下找，落到仿宋。
+   覆盖 Windows（FangSong / 仿宋 / FangSong_GB2312）、
+   macOS（STFangsong / 华文仿宋），都没有就退回 serif（思源宋体一类）。
+   ============================================================ */
+
+html[lang=zh-CN] body{
+  font-family:"DM Sans","FangSong","仿宋","STFangsong","FangSong_GB2312",serif;
+}
+
+/* 标题：Georgia 打头，汉字落仿宋 */
+html[lang=zh-CN] h1,
+html[lang=zh-CN] h2,
+html[lang=zh-CN] h3,
+html[lang=zh-CN] h1 em,
+html[lang=zh-CN] h2 em,
+html[lang=zh-CN] .hero h1,
+html[lang=zh-CN] .section-heading h2,
+html[lang=zh-CN] .case-sections h2,
+html[lang=zh-CN] .project-card h3,
+html[lang=zh-CN] .experience h3,
+html[lang=zh-CN] .next-name,
+html[lang=zh-CN] .next-name b,
+html[lang=zh-CN] .wordmark{
+  font-family:Georgia,"Times New Roman","FangSong","仿宋","STFangsong","FangSong_GB2312",serif;
+}
+
+/* 小标签/导航/表格头：Manrope 打头，汉字落仿宋 */
+html[lang=zh-CN] .eyebrow,
+html[lang=zh-CN] .edition,
+html[lang=zh-CN] .intro-label,
+html[lang=zh-CN] .hero-bottom,
+html[lang=zh-CN] .art-index,
+html[lang=zh-CN] .card-meta,
+html[lang=zh-CN] .small-caption,
+html[lang=zh-CN] .header nav,
+html[lang=zh-CN] .header nav>a,
+html[lang=zh-CN] .back-link,
+html[lang=zh-CN] .enlarge,
+html[lang=zh-CN] .project-number,
+html[lang=zh-CN] .skill-tags>span,
+html[lang=zh-CN] .video-heading>a,
+html[lang=zh-CN] .section-heading sup,
+html[lang=zh-CN] .solid-button,
+html[lang=zh-CN] .outline-button,
+html[lang=zh-CN] .case-summary dt,
+html[lang=zh-CN] .toc,
+html[lang=zh-CN] .toc summary,
+html[lang=zh-CN] .toc>a,
+html[lang=zh-CN] .toc details>a,
+html[lang=zh-CN] figcaption,
+html[lang=zh-CN] footer,
+html[lang=zh-CN] .ow-tag,
+html[lang=zh-CN] .ow-sub,
+html[lang=zh-CN] .ow-output,
+html[lang=zh-CN] .fact-k,
+html[lang=zh-CN] .pub-link,
+html[lang=zh-CN] .hf-label{
+  font-family:Manrope,"FangSong","仿宋","STFangsong","FangSong_GB2312",sans-serif;
+}
+
+/* 首屏概念图里的中文标签与图注 */
+html[lang=zh-CN] .hf-core-label,
+html[lang=zh-CN] .hf-caption{
+  font-family:Georgia,"Times New Roman","FangSong","仿宋","STFangsong","FangSong_GB2312",serif;
+}
+
+/* 中文没有真斜体，仿宋被强行拉斜会糊；正文里的 em 只留颜色 */
+html[lang=zh-CN] p em,
+html[lang=zh-CN] li em{
+  font-style:normal;
+}
