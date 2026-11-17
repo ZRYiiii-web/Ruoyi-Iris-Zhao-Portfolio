@@ -762,6 +762,191 @@ html.zh .case-summary dd.timeline-parts b{
 }
 
 /* ============================================================
+   首屏右侧概念关系图（Perceive → Understand → Reflect → Act，中心 Insight）
+   ------------------------------------------------------------
+   为什么放在 body 上而不是 .hero 里：
+     hero 整块由 React 水合渲染，语言切换时会重渲染子树，
+     插在里面的节点会被抹掉。这里做成 body 下的绝对定位层，
+     由 hero-figure.js 按 .hero 的实测位置摆过去 —— 与 React 解耦。
+   视觉上只借三样东西：:root 的颜色、.orbit 那条细线的灰绿、标题的衬线体。
+   不加卡片、不加底色、不加描边框。
+   ============================================================ */
+
+#hero-figure{
+  position:absolute; top:0; left:0;
+  width:0; height:0;
+  z-index:1;
+  pointer-events:none;
+}
+
+#hero-figure .hf-box{
+  position:absolute;
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity 1.5s ease, transform 1.7s cubic-bezier(.16,.7,.3,1);
+  will-change:opacity, transform;
+}
+#hero-figure .hf-box.is-in{opacity:1; transform:none}
+
+#hero-figure .hf-svg{
+  display:block; width:100%; height:auto;
+  overflow:visible;
+  pointer-events:none;
+  user-select:none;
+}
+
+/* ---------- 外侧那条断开的长弧：只画一笔，不合拢 ---------- */
+.hf-orbit{
+  fill:none;
+  stroke:#c6cec0;
+  stroke-width:.8;
+  stroke-linecap:round;
+  opacity:.6;
+  animation:hfBreatheSoft 19s ease-in-out infinite;
+}
+
+/* ---------- 连线 ---------- */
+.hf-link{
+  fill:none;
+  stroke:#9dad9c;
+  stroke-width:1;
+  stroke-linecap:round;
+  opacity:.92;
+  transition:stroke .55s ease, opacity .55s ease, stroke-width .55s ease;
+  animation:hfBreathe 12s ease-in-out infinite;
+}
+.hf-link:nth-of-type(2){animation-delay:-3.1s}
+.hf-link:nth-of-type(3){animation-delay:-6.2s}
+.hf-link:nth-of-type(4){animation-delay:-9.2s}
+
+/* 次级关系：更淡的虚线，暗示系统里还有别的路径 */
+.hf-link--sub{
+  stroke:#c3ccc0;
+  stroke-width:.65;
+  stroke-dasharray:1 6;
+  opacity:.42;
+  animation:none;
+}
+
+/* 行动 → 感知这一笔是虚线：闭环只是暗示 */
+.hf-link--ghost{
+  stroke:#bcc7ba;
+  stroke-dasharray:3 6;
+  opacity:.55;
+}
+
+/* 中心伸出的短丝线：不接圆心也不接节点 */
+.hf-spoke{
+  fill:none;
+  stroke:#b6c2b4;
+  stroke-width:.75;
+  stroke-dasharray:2 4;
+  stroke-linecap:round;
+  opacity:.62;
+  animation:hfBreatheSoft 15s ease-in-out infinite;
+}
+
+/* ---------- 节点 ---------- */
+.hf-node{cursor:default; animation:hfFloat 16s ease-in-out infinite; animation-delay:var(--d,0s)}
+.hf-halo{
+  fill:none; stroke:#a3b3a0; stroke-width:.6; opacity:.5;
+  transform-box:fill-box; transform-origin:center;
+  transition:opacity .5s ease, stroke .5s ease;
+}
+.hf-dot{
+  fill:#3f5449; opacity:.9;
+  transform-box:fill-box; transform-origin:center;
+  transition:transform .55s cubic-bezier(.2,.7,.3,1), fill .5s ease, opacity .5s ease;
+}
+.hf-label{
+  font-family:Manrope,"DM Sans",system-ui,sans-serif;
+  font-size:9.5px; font-weight:600;
+  letter-spacing:1.3px;
+  fill:#4a5c51;
+  opacity:.95;
+  transition:fill .5s ease, opacity .5s ease;
+}
+
+/* ---------- 中心：Insight ---------- */
+/* 中心不用圆环：用一个手绘感的 ✳（三条交叉细线），呼应页眉那个 ✳ */
+.hf-core-hit{fill:transparent}
+.hf-core-mark{
+  fill:none; stroke:#3d5449; stroke-width:.9; stroke-linecap:round;
+  opacity:.75;
+  transition:opacity .5s ease, stroke .5s ease;
+}
+.hf-core-label{
+  font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-style:italic;
+  font-size:13.5px;
+  letter-spacing:.2px;
+  fill:#39493f;
+  opacity:.82;
+}
+
+/* ---------- hover：涟漪级别的变化 ---------- */
+.hf-svg.is-hot .hf-node{opacity:.4}
+.hf-svg.is-hot .hf-node.is-hot{opacity:1}
+.hf-svg.is-hot .hf-link{opacity:.3}
+.hf-svg.is-hot .hf-link--sub{opacity:.16}
+.hf-svg.is-hot .hf-spoke{opacity:.3}
+.hf-svg.is-hot .hf-link.is-hot{opacity:1; stroke:#7b9080; stroke-width:1.05}
+.hf-svg.is-hot .hf-spoke.is-hot{opacity:.85; stroke:#94a795}
+.hf-svg.is-hot .hf-link--sub.is-hot{opacity:.9; stroke:#a4b4a3; stroke-width:.8; stroke-dasharray:2 6}
+.hf-node.is-hot .hf-dot{transform:scale(1.5); fill:#284b3d; opacity:1}
+.hf-node.is-hot .hf-halo{opacity:.9; stroke:#8b9f83; transform:scale(1.35)}
+.hf-node.is-hot .hf-label{fill:#2f4038; opacity:1}
+.hf-svg.is-hot .hf-core-mark{opacity:.4}
+.hf-svg.is-hot .hf-core-label{opacity:.5}
+
+.hf-halo{transition:opacity .5s ease, stroke .5s ease, transform .6s cubic-bezier(.2,.7,.3,1)}
+.hf-node{pointer-events:all}
+
+/* ---------- 图下一句小字 ---------- */
+.hf-caption{
+  display:flex; align-items:center; gap:10px;
+  margin:10px 0 0;
+  font-family:Georgia,"Times New Roman","Songti SC",serif;
+  font-style:italic;
+  font-size:12.5px;
+  line-height:1.4;
+  color:#8d948b;
+  letter-spacing:.1px;
+}
+.hf-caption i{
+  display:block; width:22px; height:1px;
+  background:#c9d0c6; flex:none;
+}
+html[lang=zh-CN] .hf-caption{font-style:normal; font-size:11.5px; letter-spacing:.5px}
+html[lang=zh-CN] .hf-label{font-size:10.5px; letter-spacing:.5px; font-weight:500; fill:#46584c}
+html[lang=zh-CN] .hf-core-label{font-style:normal; font-size:12.5px}
+
+/* ---------- 动效 ---------- */
+@keyframes hfFloat{
+  0%,100%{transform:translate(0,0)}
+  33%{transform:translate(1.2px,-3px)}
+  66%{transform:translate(-1.2px,1.8px)}
+}
+@keyframes hfBreathe{
+  0%,100%{opacity:.92}
+  50%{opacity:.7}
+}
+@keyframes hfBreatheSoft{
+  0%,100%{opacity:.6}
+  50%{opacity:.4}
+}
+
+@media (prefers-reduced-motion:reduce){
+  #hero-figure .hf-box{transition:none; opacity:1; transform:none}
+  .hf-node,.hf-link,.hf-spoke,.hf-core-mark{animation:none}
+}
+
+/* 窄屏没有右侧空地，交给留白 */
+@media (max-width:1079px){
+  #hero-figure{display:none}
+}
+
+/* ============================================================
    About 独立页（/about/）
    内容与原来首页 02 区块逐字一致，只是从首页滚动流里搬了出来：
    · 版面仍是左栏（标题 + 肖像 + 签名）/ 右栏（正文 + 资料 + 经历 + 荣誉 + 联系）
