@@ -377,6 +377,16 @@ html[lang=zh-CN] .hero h1 em{letter-spacing:0; font-style:normal}
 }
 
 /* ============================================================
+   底部 closing：中文排一行
+   英文是两行（Ideas are better / when they're shared.），中文只有六个字，
+   断成两行会把句子拆碎。这里把 br 关掉让中英并排走完一行；
+   西文的负字距（-0.045em）在汉字上会挤重叠，一并归零。
+   ============================================================ */
+html[lang=zh-CN] .closing h2{letter-spacing:0; line-height:1.32}
+html[lang=zh-CN] .closing h2 br{display:none}
+html[lang=zh-CN] .closing h2 em{letter-spacing:0; font-style:normal}
+
+/* ============================================================
    About me：肖像 / 资料栏 / 经历时间 / 荣誉 / 联系方式
    位置：首页 02 区块。左栏 = 标题 + 肖像 + 签名；右栏 = 正文 + 资料 + 经历 + 荣誉 + 联系方式。
    细节沿用页面既有语言：1px 细线分隔、Manrope 小字标签、var(--muted) 次级文字，
