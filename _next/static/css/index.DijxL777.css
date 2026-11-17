@@ -511,6 +511,28 @@ html.zh .t-en{display:none}
   white-space:nowrap;
 }
 
+/* 标题后的小标记：实习项目这类身份说明，用细边胶囊，不抢标题 */
+.ow-tag{
+  display:inline-block;
+  vertical-align:middle;
+  margin-left:14px;
+  padding:4px 9px 5px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font:600 9.5px/1.1 Manrope, sans-serif;
+  letter-spacing:1.2px;
+  color:var(--muted);
+  transform:translateY(-8px);
+}
+.ow-tag .t-zh{letter-spacing:.6px}
+
+/* 中文胶囊比拉丁字母小一圈会糊，单独放大 */
+html.zh .ow-tag{
+  font-size:10.5px;
+  letter-spacing:.4px;
+  padding:4px 10px 5px;
+}
+
 /* 目录里那两条链接的标题文字：不要吃号码的 9px 小字规则 */
 .case--other .toc details > a > span + span{
   opacity:1;
