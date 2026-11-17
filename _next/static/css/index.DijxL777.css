@@ -650,3 +650,23 @@ html.zh .ow-media figure img.ow-only-zh{display:block}
     margin-top:28px;
   }
 }
+
+/* DribbleIQ 的 TIMELINE 拆成两段
+   论文/海报（2025.10–2026.1）与 APP+穿戴设备（2026.3–2026.5）之间隔了两个月，
+   写成一条连续区间会让人以为是七个月连着做。
+   标签用 inline 的 mini caps，日期仍走 dd 自己的字号，所以和旁边几列一条基线。 */
+.case-summary dd.timeline-parts{display:grid;gap:9px}
+.case-summary dd.timeline-parts span{display:block}
+.case-summary dd.timeline-parts b{
+  display:block;
+  margin-bottom:2px;
+  color:var(--ink);
+  font:600 8px/1.5 Manrope,sans-serif;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+}
+/* 中文标签不适合大字距 + 8px，后者在宋体/黑体下会糊成一条 */
+html.zh .case-summary dd.timeline-parts b{
+  font-size:9px;
+  letter-spacing:.3px;
+}
