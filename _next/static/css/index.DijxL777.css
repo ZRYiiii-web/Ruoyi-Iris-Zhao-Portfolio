@@ -670,3 +670,130 @@ html.zh .case-summary dd.timeline-parts b{
   font-size:9px;
   letter-spacing:.3px;
 }
+
+/* ============================================================
+   首页版式调整
+   1) 首屏撤掉四图作品墙 —— 只留标题、副标题与按钮，右侧留白
+      （hero-art 的 DOM 已在 build 里整块删除，这里只补宽度与断点）
+   2) Selected work 的四张作品卡加「纸框」：与 otherwork 封面同一套
+      白底 + 内缩边距 + 轻投影，四张图裁成同一 4:3 画幅，
+      视觉尺寸一致（原来是 1.1fr / 1fr 两栏 + 偶数项下移 65px，
+      格子本身就不一样大）
+   3) 第 5 张合集卡沿用原来的大横版比例，只加同一个框
+   ============================================================ */
+
+/* ---------- 1. 首屏：文字放宽，右侧留白 ---------- */
+.hero .hero-copy{width:54%}
+.hero .hero-copy p{max-width:440px}
+
+/* 轨道线留着 —— 空场里那几道弧线就是唯一的装饰。
+   原来那颗落在作品墙上的小圆点，图撤掉之后只剩一个孤零零的绿点，去掉。 */
+.hero .orbit circle{display:none}
+
+/* ---------- 2. 作品卡：纸框 ---------- */
+.project-grid{grid-template-columns:1fr 1fr;gap:52px 44px}
+
+.project-card{
+  display:block;
+  background:#fdfbf7;
+  padding:14px 14px 8px;
+  box-shadow:0 10px 26px rgba(32,48,40,.07), 0 1px 2px rgba(32,48,40,.04);
+  transform:none;
+  transition:box-shadow .4s ease, transform .4s ease;
+}
+/* 原来偶数项整体下移 65px，两列错位后看着一高一低，这里一起拉平 */
+.project-card:nth-child(2n){transform:none}
+.project-card:hover,
+.project-card:nth-child(2n):hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(32,48,40,.12), 0 1px 2px rgba(32,48,40,.04);
+}
+
+/* 画幅统一：不管原图是横是竖，都裁成 16:9 —— 卡片高度自然对齐。
+   四张源图本身是 1.74–1.94 的横版版面，16:9 裁得最少（1%–8%），
+   再往下压到 3:2 / 4:3 会把封面上排好的字和版心切掉。 */
+.project-image,
+.project-card[data-project=dietary-traces] .project-image{
+  height:auto;
+  aspect-ratio:16 / 9;
+}
+
+/* 编号从封面左上角的小胶囊挪到标题里：「01 / BodyBuddy」。
+   胶囊压在封面的标题字上（DribbleIQ 那张尤其明显），
+   用计数器生成，不用改 DOM（hydration 里的 h3 也不受影响）。 */
+.project-grid{counter-reset:work}
+.project-grid .project-card{counter-increment:work}
+.project-grid .project-card h3::before{
+  content:counter(work,decimal-leading-zero) " / ";
+}
+.project-number{display:none}
+
+/* 文字收进框内，左右与图片边缘对齐（不额外缩进） */
+.project-card .card-meta{margin:16px 0 10px}
+.project-card h3{margin:0;line-height:1.15}
+.project-card > p{margin:6px 0 12px}
+
+/* ---------- 3. 第 5 张合集卡：同一个框，保持大横版 ---------- */
+.project-card--wide{
+  border-top:0;
+  margin-top:58px;
+  padding:14px 14px 8px;
+  background:#fdfbf7;
+  box-shadow:0 10px 26px rgba(32,48,40,.07), 0 1px 2px rgba(32,48,40,.04);
+}
+.project-card--wide:hover{transform:none}
+.project-card--wide .project-image{height:auto;aspect-ratio:2600 / 904}
+.project-card--wide .card-meta{margin-top:16px}
+.project-card--wide > p{max-width:640px;margin-bottom:14px}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:900px){
+  .hero .hero-copy{width:100%}
+  .project-grid{gap:36px 24px}
+  .project-card{padding:11px 11px 6px}
+  .project-card .card-meta{margin:13px 0 8px}
+  .project-card > p{margin:5px 0 10px}
+  .project-card--wide{margin-top:40px;padding:11px 11px 6px}
+}
+
+@media (max-width:700px){
+  .project-grid{grid-template-columns:1fr;gap:30px}
+  .project-card--wide{margin-top:34px}
+}
+
+/* ============================================================
+   About 独立页（/about/）
+   内容与原来首页 02 区块逐字一致，只是从首页滚动流里搬了出来：
+   · 版面仍是左栏（标题 + 肖像 + 签名）/ 右栏（正文 + 资料 + 经历 + 荣誉 + 联系）
+   · 标题层级从 h2 提到 h1（独立页的页面标题），字号沿用站内 L2 级别
+   · 双语走 Other Works 那套 .t-en / .t-zh 开关（同一个 localStorage key）
+   ============================================================ */
+
+.about-page{padding-top:62px;padding-bottom:110px}
+
+/* h2 的样式在 `about h2` 上，换成 h1 后要补一份同样的排版 */
+.about h1{
+  margin-top:27px;
+  font-size:clamp(30px,3.1vw,44px);
+  line-height:1.16;
+}
+html[lang=zh-CN] .about h1{
+  font-size:clamp(28px,2.8vw,40px);
+  letter-spacing:-.02em;
+}
+
+/* `.fact-v>span{display:block}` 的优先级高于 `.t-zh{display:none}`，
+   双语的两个分支会被同时显示出来 —— 这里显式管住 */
+.fact-v>.t-zh{display:none}
+html.zh .fact-v>.t-en{display:none}
+html.zh .fact-v>.t-zh{display:block}
+
+/* 顶部导航：当前页给一点区分 */
+.header nav>a.is-current{color:var(--green)}
+
+/* 独立页没有首屏那块大留白，标题区不需要粘在视口上沿太远 */
+.about-page .about-title{top:104px}
+
+@media (max-width:900px){
+  .about-page{padding-top:40px;padding-bottom:70px}
+}
