@@ -1068,28 +1068,28 @@ html[lang=zh-CN] .closing>.eyebrow{
   letter-spacing:.22em;
 }
 
-/* 主句下面紧跟链接行，h2 原来的 28px 下边距留一半给它 */
-.closing h2{margin-bottom:22px}
+/* 主句下面紧跟链接行，给它一口气的距离 */
+.closing h2{margin-bottom:32px}
 
 .closing-links{
   display:flex;
   flex-wrap:wrap;
   align-items:center;
   justify-content:center;
-  gap:8px 20px;
+  gap:8px 22px;
 }
 
 .closing-link{
   display:inline-flex;
   align-items:center;
-  gap:6px;
-  font-size:16px;
+  gap:7px;
+  font-size:17px;
   font-weight:500;
   letter-spacing:.01em;
   color:var(--ink);
   line-height:1.5;
-  padding-bottom:2px;
-  border-bottom:1px solid rgba(34,43,38,.26);
+  padding-bottom:3px;
+  border-bottom:1px solid rgba(34,43,38,.3);
   transition:color .3s ease, border-color .3s ease;
 }
 .closing-link .arrow-icon{
@@ -1104,16 +1104,17 @@ html[lang=zh-CN] .closing>.eyebrow{
 
 .closing-sep{
   color:var(--muted);
-  font-size:15px;
+  font-size:16px;
   line-height:1;
-  opacity:.6;
+  opacity:.55;
 }
 
 @media (max-width:700px){
   .closing>.eyebrow,
   html[lang=zh-CN] .closing>.eyebrow{font-size:16px}
+  .closing h2{margin-bottom:24px}
   .closing-link{font-size:15px}
-  .closing-links{gap:6px 14px}
+  .closing-links{gap:8px 14px}
 }
 
 /* ============================================================
