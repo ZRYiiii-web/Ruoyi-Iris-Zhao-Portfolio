@@ -1102,11 +1102,15 @@ html[lang=zh-CN] .closing>.eyebrow{
   border-color:var(--green);
 }
 
+/* 分隔不写字符，改一根细竖线，和站内的 hairline 同一套语言
+   （HTML/JSX 里那个 `·` 用 font-size:0 藏掉，避免两边改 DOM） */
 .closing-sep{
-  color:var(--muted);
-  font-size:16px;
-  line-height:1;
-  opacity:.55;
+  width:1px;
+  height:15px;
+  background:rgba(34,43,38,.22);
+  font-size:0;
+  color:transparent;
+  flex:none;
 }
 
 @media (max-width:700px){
