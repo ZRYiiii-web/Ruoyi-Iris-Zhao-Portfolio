@@ -1134,6 +1134,14 @@ html[lang=zh-CN] .about-page .fact-k{
   letter-spacing:.01em;
 }
 
+/* 正文一律用墨色（原先是 --muted 的灰），和标题同一档深浅；
+   标签与日期仍是灰的，维持层级 */
+.about-page .about-content>p,
+.about-page .about-content .personal-note,
+.about-page .experience p{
+  color:var(--ink);
+}
+
 /* 荣誉 / 联系 的标题紧跟正文，间距按新字号收紧一点 */
 .about-page .about-rec>.eyebrow,
 .about-page .about-contact>.eyebrow{margin-bottom:10px}
