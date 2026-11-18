@@ -1138,6 +1138,17 @@ html[lang=zh-CN] .about-page .fact-k{
 .about-page .about-rec>.eyebrow,
 .about-page .about-contact>.eyebrow{margin-bottom:10px}
 
+/* 手机上正文降到 15.5px（typo.css 的断点），这几处跟着降，保持同档 */
+@media (max-width:700px){
+  .about-page .eyebrow,
+  .about-page .fact-k,
+  .about-page .fact-v,
+  .about-page .rec-t,
+  .about-page .rec-y,
+  .about-page .exp-when,
+  .about-page .experience p{font-size:15.5px}
+}
+
 @media (max-width:900px){
   .about-page{padding-top:40px;padding-bottom:70px}
 }
