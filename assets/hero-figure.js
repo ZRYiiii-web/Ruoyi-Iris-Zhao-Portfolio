@@ -17,7 +17,7 @@
   // 四个节点 + 中心。画布 440×370（横幅比例更贴右侧那块空地），
   // 视觉中心略偏左上，给右下留一口气。
   var NODES = [
-    { id: 'perceive',   x: 92,  y: 126, lx: 92,  ly: 95,  anchor: 'middle',
+    { id: 'perceive',   x: 92,  y: 126, lx: 92,  ly: 95,  lyz: 108, anchor: 'middle',
       en: 'PERCEIVE',   zh: '感知' },
     { id: 'understand', x: 334, y: 146, lx: 348, ly: 144, anchor: 'start',
       en: 'UNDERSTAND', zh: '理解' },
@@ -81,6 +81,7 @@
            '<circle class="hf-halo" cx="' + n.x + '" cy="' + n.y + '" r="7.5"/>' +
            '<circle class="hf-dot" cx="' + n.x + '" cy="' + n.y + '" r="3"/>' +
            '<text class="hf-label" data-en="' + n.en + '" data-zh="' + n.zh + '" ' +
+           'data-y-en="' + n.ly + '" data-y-zh="' + (n.lyz || n.ly) + '" ' +
            'x="' + n.lx + '" y="' + n.ly + '" text-anchor="' + n.anchor + '">' + n.en + '</text>' +
            '</g>';
     });
@@ -103,6 +104,9 @@
       var el = els[i];
       var v = el.getAttribute(zh ? 'data-zh' : 'data-en');
       if (v && el.textContent !== v) el.textContent = v;
+      // 中文标签字号更大，基线要单独给一档，否则离节点太远
+      var y = el.getAttribute(zh ? 'data-y-zh' : 'data-y-en');
+      if (y) el.setAttribute('y', y);
     }
   }
 
