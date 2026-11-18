@@ -1098,6 +1098,46 @@ html.zh .fact-v>.t-zh{display:block}
 /* 独立页没有首屏那块大留白，标题区不需要粘在视口上沿太远 */
 .about-page .about-title{top:104px}
 
+/* ---------- 右栏统一到正文字号 ----------
+   原来这一栏有三套字号：13px 的 mini caps（BASED IN / EDUCATION / PRODUCT PRACTICE /
+   荣誉 / 联系）、15.5px 的值、16px 的正文。层级多、每块都要重新辨认。
+   现在整栏统一 16px + 正文同一套字体，标签只靠 600 字重区分，日期回常规字重。
+   注意：中文版 cjk-fangsong.css 里给 .fact-k / .eyebrow 单独指定过 Manrope 栈，
+   这里要用带 html[lang] 的选择器盖掉，否则中英两个字族还是两套。 */
+.about-page .eyebrow,
+.about-page .fact-k{
+  font-family:inherit;
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.02em;
+  line-height:1.5;
+}
+html[lang=zh-CN] .about-page .eyebrow,
+html[lang=zh-CN] .about-page .fact-k{
+  font-family:inherit;
+  letter-spacing:.02em;
+}
+
+.about-page .fact-v,
+.about-page .rec-t,
+.about-page .experience p{
+  font-size:16px;
+  line-height:1.6;
+}
+
+/* 日期是「值」不是「标签」，保持灰色常规字重，只跟正文同字号 */
+.about-page .exp-when,
+.about-page .rec-y{
+  font-family:inherit;
+  font-size:16px;
+  font-weight:400;
+  letter-spacing:.01em;
+}
+
+/* 荣誉 / 联系 的标题紧跟正文，间距按新字号收紧一点 */
+.about-page .about-rec>.eyebrow,
+.about-page .about-contact>.eyebrow{margin-bottom:10px}
+
 @media (max-width:900px){
   .about-page{padding-top:40px;padding-bottom:70px}
 }
