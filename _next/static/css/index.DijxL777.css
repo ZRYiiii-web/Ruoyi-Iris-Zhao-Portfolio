@@ -890,10 +890,12 @@ html.zh .case-summary dd.timeline-parts b{
   transform-box:fill-box; transform-origin:center;
   transition:transform .55s cubic-bezier(.2,.7,.3,1), fill .5s ease, opacity .5s ease;
 }
+/* 英文标签也要跟中文同一档（≈显示 19–20px）。
+   代价是 UNDERSTAND 变宽，节点整体左移了一点，见 hero-figure.js 的坐标注释 */
 .hf-label{
   font-family:Manrope,"DM Sans",system-ui,sans-serif;
-  font-size:9.5px; font-weight:600;
-  letter-spacing:1.3px;
+  font-size:17px; font-weight:600;
+  letter-spacing:.7px;
   fill:#4a5c51;
   opacity:.95;
   transition:fill .5s ease, opacity .5s ease;
@@ -910,7 +912,7 @@ html.zh .case-summary dd.timeline-parts b{
 .hf-core-label{
   font-family:Georgia,"Times New Roman","Songti SC",serif;
   font-style:italic;
-  font-size:13.5px;
+  font-size:18px;
   letter-spacing:.2px;
   fill:#39493f;
   opacity:.82;
@@ -940,7 +942,7 @@ html.zh .case-summary dd.timeline-parts b{
   margin:10px 0 0;
   font-family:Georgia,"Times New Roman","Songti SC",serif;
   font-style:italic;
-  font-size:12.5px;
+  font-size:17px;
   line-height:1.4;
   color:#8d948b;
   letter-spacing:.1px;
@@ -999,8 +1001,12 @@ html[lang=zh-CN] .hero h1{
   font-weight:600;
 }
 
+/* 署名（✳ RUOYI (IRIS) ZHAO）也归到 20px 一档；星号原样 23px，跟着放大反而更稳 */
+.hero-copy .intro-label{font-size:20px; letter-spacing:1.2px; gap:12px}
+
 /* 小字那一行已经删掉，按钮紧跟标题，给它一点呼吸 */
-.hero-copy .solid-button{margin-top:6px}
+.hero-copy .solid-button{margin-top:6px; font-size:16px; padding:16px 22px; gap:34px}
+.hero-copy .solid-button span{font-size:19px; display:inline-flex}
 
 /* ---------- 首屏次级文字统一一档 ----------
    品牌名、左下的「人本 AI 与交互设计」、右下的「向下探索」、

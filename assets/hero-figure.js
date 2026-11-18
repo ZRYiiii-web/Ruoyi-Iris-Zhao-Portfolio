@@ -14,14 +14,15 @@
   var W_MIN = 360, W_MAX = 486;
   var ASPECT = 300 / 440;      // 画布 440×300（只裁掉上下空白，图形本身不缩）
 
-  // 四个节点 + 中心。画布 440×370（横幅比例更贴右侧那块空地），
-  // 视觉中心略偏左上，给右下留一口气。
+  // 四个节点 + 中心。画布 440×300（viewBox 只裁掉上下空白，图形本身不缩）。
+  // 右侧两个节点比原来左移了 30 出头：英文标签放大到 17 个单位后，
+  // UNDERSTAND 一词要占 ~120 个单位，不左移会顶出 440 的右边界。
   var NODES = [
     { id: 'perceive',   x: 92,  y: 126, lx: 92,  ly: 95,  lyz: 108, anchor: 'middle',
       en: 'PERCEIVE',   zh: '感知' },
-    { id: 'understand', x: 334, y: 146, lx: 348, ly: 144, anchor: 'start',
+    { id: 'understand', x: 298, y: 146, lx: 310, ly: 144, anchor: 'start',
       en: 'UNDERSTAND', zh: '理解' },
-    { id: 'reflect',    x: 366, y: 270, lx: 388, ly: 275, anchor: 'start',
+    { id: 'reflect',    x: 330, y: 272, lx: 342, ly: 277, anchor: 'start',
       en: 'REFLECT',    zh: '反思' },
     { id: 'act',        x: 156, y: 308, lx: 156, ly: 335, anchor: 'middle',
       en: 'ACT',        zh: '行动' }
@@ -30,20 +31,20 @@
   // 三条实线 + 一条回环虚线：从感知到行动是一条实路，行动回到感知是虚线，
   // 闭环只被「暗示」，不真的合上。
   var LINKS = [
-    { t: 'perceive understand',  d: 'M92,126 Q210,96 334,146' },
-    { t: 'understand reflect',   d: 'M334,146 Q400,206 366,270' },
-    { t: 'reflect act',          d: 'M366,270 Q316,348 156,308' },
+    { t: 'perceive understand',  d: 'M92,126 Q194,96 298,146' },
+    { t: 'understand reflect',   d: 'M298,146 Q370,204 330,272' },
+    { t: 'reflect act',          d: 'M330,272 Q286,348 156,308' },
     { t: 'act perceive', ghost: 1, d: 'M156,308 Q58,232 92,126' },
     // 次级关系：更淡、虚线，只是暗示还有别的路径
-    { t: 'perceive reflect',  sub: 1, d: 'M92,126 Q228,206 366,270' },
-    { t: 'act understand',    sub: 1, d: 'M156,308 Q250,238 334,146' }
+    { t: 'perceive reflect',  sub: 1, d: 'M92,126 Q208,206 330,272' },
+    { t: 'act understand',    sub: 1, d: 'M156,308 Q222,236 298,146' }
   ];
 
   // 中心伸出的短丝线：只画中段，不接圆心也不接节点，留气口
   var SPOKES = [
     { t: 'perceive insight',   d: 'M105,135 L194,198' },
-    { t: 'understand insight', d: 'M321,155 L251,200' },
-    { t: 'reflect insight',    d: 'M351,265 L254,230' },
+    { t: 'understand insight', d: 'M287,155 L250,199' },
+    { t: 'reflect insight',    d: 'M317,265 L254,232' },
     { t: 'act insight',        d: 'M165,295 L202,245' }
   ];
 
