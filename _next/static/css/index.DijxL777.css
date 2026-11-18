@@ -1050,6 +1050,73 @@ html[lang=zh-CN] .hero h1 em{font-weight:inherit}
 }
 
 /* ============================================================
+   底部 closing：小标题放大 + 正文下方并排的邮箱 / CV
+   原来「进一步了解 / TAKE A CLOSER LOOK」是 13px 的标签级小字，
+   在这种收尾区块里偏弱，提到 20px（仍小于 44px 的主句）。
+   链接不是按钮：细下划线 + 小箭头，和 About 页的联系方式同一套语气。
+   ============================================================ */
+.closing>.eyebrow{
+  display:inline-block;
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.1em;
+  line-height:1.3;
+  color:var(--muted);
+}
+html[lang=zh-CN] .closing>.eyebrow{
+  font-size:20px;
+  letter-spacing:.22em;
+}
+
+/* 主句下面紧跟链接行，h2 原来的 28px 下边距留一半给它 */
+.closing h2{margin-bottom:22px}
+
+.closing-links{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:8px 20px;
+}
+
+.closing-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:16px;
+  font-weight:500;
+  letter-spacing:.01em;
+  color:var(--ink);
+  line-height:1.5;
+  padding-bottom:2px;
+  border-bottom:1px solid rgba(34,43,38,.26);
+  transition:color .3s ease, border-color .3s ease;
+}
+.closing-link .arrow-icon{
+  width:12px;
+  height:12px;
+  flex:none;
+}
+.closing-link:hover{
+  color:var(--green);
+  border-color:var(--green);
+}
+
+.closing-sep{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1;
+  opacity:.6;
+}
+
+@media (max-width:700px){
+  .closing>.eyebrow,
+  html[lang=zh-CN] .closing>.eyebrow{font-size:16px}
+  .closing-link{font-size:15px}
+  .closing-links{gap:6px 14px}
+}
+
+/* ============================================================
    About 独立页（/about/）
    内容与原来首页 02 区块逐字一致，只是从首页滚动流里搬了出来：
    · 版面仍是左栏（标题 + 肖像 + 签名）/ 右栏（正文 + 资料 + 经历 + 荣誉 + 联系）
