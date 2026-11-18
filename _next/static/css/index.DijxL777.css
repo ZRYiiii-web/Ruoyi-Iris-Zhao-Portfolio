@@ -1125,6 +1125,15 @@ html[lang=zh-CN] .about-page .fact-k{
   line-height:1.6;
 }
 
+/* 项目名（Finco · AI SaaS / BounceCoach / 朗敦道）原先是 31px，
+   在这一栏里比正文重太多，抢了标题的位置；收到 24px 一档，
+   仍明显大于正文 16px，但退回「条目名」的分量 */
+.about-page .experience h3{
+  font-size:clamp(19px, 1.7vw, 24px);
+  line-height:1.32;
+  margin:10px 0 7px;
+}
+
 /* 日期是「值」不是「标签」，保持灰色常规字重，只跟正文同字号 */
 .about-page .exp-when,
 .about-page .rec-y{
