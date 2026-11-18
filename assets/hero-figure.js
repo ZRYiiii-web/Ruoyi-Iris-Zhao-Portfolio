@@ -11,8 +11,8 @@
   'use strict';
 
   var ID = 'hero-figure';
-  var W_MIN = 360, W_MAX = 486;
-  var ASPECT = 300 / 440;      // 画布 440×300（只裁掉上下空白，图形本身不缩）
+  var W_MIN = 360, W_MAX = 520;
+  var ASPECT = 300 / 470;      // 画布 470×300（右边界留 40 个单位的空，给放大后的标签）
 
   // 四个节点 + 中心。画布 440×300（viewBox 只裁掉上下空白，图形本身不缩）。
   // 右侧两个节点比原来左移了 30 出头：英文标签放大到 17 个单位后，
@@ -55,7 +55,7 @@
 
   function svgMarkup() {
     var s = '';
-    s += '<svg class="hf-svg" viewBox="0 66 440 300" role="img" ' +
+    s += '<svg class="hf-svg" viewBox="-12 66 470 300" role="img" ' +
          'aria-label="Perceive, understand, reflect and act, connected around insight">';
 
     s += '<g class="hf-links">';
